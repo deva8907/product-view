@@ -17,18 +17,25 @@ export default function ProductTable() {
     const [onlyShowProductsInStock, setShowProductsInStock] = useState(false);
     const [searchText, setSearchText] = useState('');
 
-    const handleOnCheckChange = (e) => {
-        setShowProductsInStock(e.target.checked);
-    }
-    const handleOnSearch = (e) => {
-        setSearchText(e.target.value);
-    }
     return <>
         <div>
-            <Header showProductInStock={onlyShowProductsInStock} onCheckChange={handleOnCheckChange} searchText={searchText} onSearch={handleOnSearch} />
+            <Header showProductInStock={onlyShowProductsInStock}
+                onCheckChange={(e) => handleOnCheckChange(e, setShowProductsInStock)}
+                searchText={searchText}
+                onSearch={(e) => handleOnSearch(e, setSearchText)} />
         </div>
         <div>
-            <ProductList productData={productData} onlyShowProductInStock={onlyShowProductsInStock} searchText={searchText} />
+            <ProductList productData={productData}
+                onlyShowProductInStock={onlyShowProductsInStock}
+                searchText={searchText} />
         </div>
     </>
+}
+
+function handleOnCheckChange(e, setShowProductsInStock) {
+    setShowProductsInStock(e.target.checked);
+}
+
+function handleOnSearch(e, setSearchText) {
+    setSearchText(e.target.value);
 }
